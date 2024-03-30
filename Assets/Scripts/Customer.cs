@@ -25,21 +25,36 @@ public class Customer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GenerateRandomProduct();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (flowerChanger.currentFlower == currentProduct)
+        currentProductUpdate();
+    }
+
+    public void Check()
+    {
+        if (flowerChanger.currentFlower == products[currentProduct].flowerSelection && potChanger.currentPot == products[currentProduct].potSelection)
         {
-
+            GenerateRandomProduct();
         }
+        else Debug.Log("Wrong Combination");
+    }
 
-        if (potChanger.currentPot == currentProduct)
-        {
+    void currentProductUpdate()
+    {
+        if (currentProduct < 0)
+            currentProduct = products.Count - 1;
+        if (currentProduct >= products.Count)
+            currentProduct = 0;
+    }
 
-        }
+    void GenerateRandomProduct()
+    {
+        currentProduct = UnityEngine.Random.Range(0, products.Count);
+        productImg.sprite = products[currentProduct].sprite;
     }
 }
 
